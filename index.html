@@ -641,19 +641,10 @@
     }
   }
 
-  /* 좌측: 영상 2편을 가로로 나란히 (PC 기본) */
-  .performance-videos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+  /* 영상 1편 — 가로 폭을 적당히 제한 (브이로그와 동일 톤) */
+  .performance-video {
     max-width: 880px;
     width: 100%;
-  }
-  @media (max-width: 480px) {
-    .performance-videos {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
   }
 
   /* ==========================================================================
@@ -799,22 +790,22 @@
      아래 portfolioData 객체에서 null로 되어 있는 값을 채우세요.
 
      [variety] (브이로그형 예능 1편)
-       youtubeId         — 영상 ID 11자리
-       thumbnailPath     — 썸네일 이미지 경로 (16:9, 권장 1280x720)
+       - youtubeId, thumbnailPath: 채워짐 ✓
 
-     [performance] (댄스 커버)
-       tagline           — 한 줄 설명
-       info[].value      — 동아리 / 곡 #1 / 곡 #2 / 제작 시기
-       videos[].youtubeId, thumbnailPath (각 영상 16:9)
+     [performance] (댄스 커버 영상 1편)
+       - youtubeId, thumbnailPath: 채워짐 ✓
+       - info[0].value (동아리명): 채울 곳
+       - tagline (선택): 한 줄 설명, 안 쓰면 그대로 null
 
      [commercial] (SNS 프로모션 숏츠 6편)
-       title             — 작품명 (실제 IP 작품명)
-       sourceType        — "webtoon" 또는 "webnovel"
-       externalUrl       — 카카오톡 숏폼 외부 링크
-       thumbnailPath     — 썸네일 이미지 경로 (9:16, 권장 720x1280)
+       각 항목마다:
+         title             — 작품명 (실제 IP 작품명)
+         externalUrl       — 카카오톡 숏폼 외부 링크
+         thumbnailPath     — 이미 "/images/shorts-1.jpg" 형식으로 채워짐
+         sourceType        — 모두 "webtoon"으로 채워짐 (6편 다 웹툰)
 
-     ★ 영상 ID나 이미지가 비어있으면 자동으로 placeholder가 표시됩니다.
-     ★ 이미지 경로 예시: "/images/variety-1.jpg"
+     ★ 이미지는 사이트 루트의 /images/ 폴더에 다음 파일명으로 업로드:
+        variety-1.jpg, dance-1.jpg, shorts-1.jpg ~ shorts-6.jpg
      ============================================================================ -->
 <script>
   const portfolioData = {
@@ -831,8 +822,8 @@
     variety: {
       title: "수강신청 브이로그 예능",
       tagline: "수강신청 현장을 따라간 학과 브이로그 예능",
-      youtubeId: null,
-      thumbnailPath: null,
+      youtubeId: "xU75fGiO2Dg",
+      thumbnailPath: "/images/variety-1.jpg",
       info: [
         { key: "주제",      value: "수강신청" },
         { key: "출연",      value: "학과 학생 3개 팀" },
@@ -848,13 +839,11 @@
 
     performance: {
       title: "댄스 커버 영상",
-      tagline: null,    // 예: "두 곡의 안무를 사전 설계 방식으로 촬영한 영상"
+      tagline: null,    // (선택) 한 줄 설명. 안 쓰려면 그대로 null
       info: [
-        // 모든 값은 placeholder. 나중에 채우세요.
         { key: "동아리",       value: null },  // 예: "○○대학교 댄스 동아리 ○○"
-        { key: "곡 #1",        value: null },  // 예: "(원곡 아티스트) - (곡명)"
-        { key: "곡 #2",        value: null },
-        { key: "제작 시기",     value: null },  // 예: "2023.○○. ~ 2023.○○."
+        { key: "곡",          value: "Stefflon Don - 16 Shots" },
+        { key: "제작 시기",     value: "2020.09. ~ 2020.10." },
         { key: "촬영 환경",     value: "한 시간 사용 가능한 연습실, 카메라 2대" },
         { key: "담당 역할",     value: "촬영, 편집" },
         { key: "업로드",       value: "동아리 유튜브 채널" }
@@ -863,10 +852,12 @@
         "안무 영상을 여러 번 돌려 보며 안무를 거의 외울 정도로 익힌 뒤, 곡 안에서 가장 강조할 킬링파트를 먼저 정했습니다. 브릿지 파트는 핸디캠으로 가까이 다가가 역동적인 샷을 따로 설계했고, 나머지 구간은 풀샷으로 전체 안무가 잘 보이도록 균형을 맞췄습니다.",
         "후반 작업에서 적용할 색감과 효과를 미리 떠올린 상태에서 그에 맞는 조명을 설치해 촬영했습니다."
       ],
-      videos: [
-        { id: "dance-1", title: "댄스 커버 영상 #1", youtubeId: null, thumbnailPath: null },
-        { id: "dance-2", title: "댄스 커버 영상 #2", youtubeId: null, thumbnailPath: null }
-      ]
+      video: {
+        id: "dance-1",
+        title: "댄스 커버 영상",
+        youtubeId: "wCTjzcYyI7E",
+        thumbnailPath: "/images/dance-1.jpg"
+      }
     },
 
     commercial: {
@@ -876,12 +867,12 @@
         { key: "담당 역할",   value: "단독 기획·편집" }
       ],
       shorts: [
-        { id: "shorts-1", title: null, sourceType: null, externalUrl: null, thumbnailPath: null },
-        { id: "shorts-2", title: null, sourceType: null, externalUrl: null, thumbnailPath: null },
-        { id: "shorts-3", title: null, sourceType: null, externalUrl: null, thumbnailPath: null },
-        { id: "shorts-4", title: null, sourceType: null, externalUrl: null, thumbnailPath: null },
-        { id: "shorts-5", title: null, sourceType: null, externalUrl: null, thumbnailPath: null },
-        { id: "shorts-6", title: null, sourceType: null, externalUrl: null, thumbnailPath: null }
+        { id: "shorts-1", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-1.jpg" },
+        { id: "shorts-2", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-2.jpg" },
+        { id: "shorts-3", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-3.jpg" },
+        { id: "shorts-4", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-4.jpg" },
+        { id: "shorts-5", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-5.jpg" },
+        { id: "shorts-6", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-6.jpg" }
       ]
     }
   };
@@ -1207,28 +1198,29 @@
   }
 
   /* ==========================================================================
-     섹션 2 — 댄스 커버 (브이로그와 동일한 좌우 분할 카드)
+     섹션 2 — 댄스 커버 (영상 1편 + 정보/노트)
      ========================================================================== */
   function renderPerformance() {
     const el = document.getElementById('performance-card');
     if (!el) return;
     const p = portfolioData.performance;
 
-    // 좌측: 영상 2편을 가로로
-    const videosHtml = p.videos.map(v => renderVideoFrame({
-      youtubeId: v.youtubeId,
-      thumbnailPath: v.thumbnailPath,
+    const videoHtml = renderVideoFrame({
+      youtubeId: p.video.youtubeId,
+      thumbnailPath: p.video.thumbnailPath,
       aspect: '16x9',
-      title: v.title
-    })).join('');
+      title: p.video.title
+    });
 
     // 정보 리스트 (null 값은 placeholder로)
     const infoRows = p.info.map(row => {
-      const val = row.value || '<span style="color:var(--color-border-strong)">— 정보 준비 중</span>';
+      const val = row.value
+        ? escapeHtml(row.value)
+        : '<span style="color:var(--color-border-strong)">— 정보 준비 중</span>';
       return `
         <li class="info-row">
           <span class="info-key">${escapeHtml(row.key)}</span>
-          <span class="info-val">${row.value ? escapeHtml(row.value) : val}</span>
+          <span class="info-val">${val}</span>
         </li>
       `;
     }).join('');
@@ -1239,9 +1231,7 @@
       : '';
 
     el.innerHTML = `
-      <div>
-        <div class="performance-videos">${videosHtml}</div>
-      </div>
+      <div class="performance-video">${videoHtml}</div>
       <div class="work-info">
         <h3 class="work-title">${escapeHtml(p.title)}</h3>
         ${taglineHtml}
