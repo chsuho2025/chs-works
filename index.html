@@ -556,18 +556,23 @@
 
   /* ==========================================================================
      섹션 1 — 브이로그형 예능
+     영상과 설명을 항상 다른 행에 배치 (PC에서도 좌우 분할 안 함)
      ========================================================================== */
   .variety-card {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 56px;
-    align-items: start;
   }
   @media (max-width: 880px) {
     .variety-card {
-      grid-template-columns: 1fr;
       gap: 36px;
     }
+  }
+
+  /* 영상 영역의 가로 폭을 적당히 제한 — 너무 넓어서 정보 영역과 비율이 깨지지 않게 */
+  .variety-video {
+    max-width: 880px;
+    width: 100%;
   }
 
   .work-info {
@@ -623,25 +628,26 @@
 
   /* ==========================================================================
      섹션 2 — 댄스 커버
+     영상과 설명을 항상 다른 행에 배치 (PC에서도 좌우 분할 안 함)
      ========================================================================== */
   .performance-card {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 56px;
-    align-items: start;
   }
   @media (max-width: 880px) {
     .performance-card {
-      grid-template-columns: 1fr;
       gap: 36px;
     }
   }
 
-  /* 좌측: 영상 2편을 가로로 나란히 */
+  /* 좌측: 영상 2편을 가로로 나란히 (PC 기본) */
   .performance-videos {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 24px;
+    max-width: 880px;
+    width: 100%;
   }
   @media (max-width: 480px) {
     .performance-videos {
@@ -901,7 +907,7 @@
     <div class="content">
       <div class="hero-label" id="hero-label">영상 매니지먼트 인턴 지원자 · 최수호</div>
       <h1 class="hero-title">
-        <span class="hero-title-line" data-split>영상이 만들어지는 과정을,</span>
+        <span class="hero-title-line" data-split>영상 제작의 전 과정을</span>
         <span class="hero-title-line" data-split>직접 경험해보려 노력해왔습니다.</span>
       </h1>
       <p class="hero-sub" id="hero-sub">
@@ -1190,7 +1196,7 @@
     const noteParas = v.note.map(p => `<p>${escapeHtml(p)}</p>`).join('');
 
     el.innerHTML = `
-      <div>${videoHtml}</div>
+      <div class="variety-video">${videoHtml}</div>
       <div class="work-info">
         <h3 class="work-title">${escapeHtml(v.title)}</h3>
         <p class="work-tagline">${escapeHtml(v.tagline)}</p>
