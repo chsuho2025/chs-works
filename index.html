@@ -687,34 +687,29 @@
 
   .shorts-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 320px));
     gap: 32px;
+    justify-content: start;
   }
-  @media (max-width: 880px) {
+  @media (max-width: 720px) {
     .shorts-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 24px;
     }
   }
-  @media (max-width: 520px) {
+  @media (max-width: 480px) {
     .shorts-grid {
       grid-template-columns: 1fr;
       gap: 24px;
+      max-width: 320px;
     }
   }
 
   .shorts-card {
     display: block;
-    transition: transform 0.4s var(--ease-soft);
-  }
-  .shorts-card:hover {
-    transform: translateY(-4px);
   }
   .shorts-card .video-frame {
     margin-bottom: 16px;
-  }
-  .shorts-card:hover .video-frame {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   }
   .video-frame {
     transition: box-shadow 0.4s var(--ease-soft);
@@ -737,25 +732,6 @@
     letter-spacing: -0.02em;
     color: var(--color-text);
     line-height: 1.4;
-    margin-bottom: 12px;
-  }
-  .shorts-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--color-text-meta);
-    transition: color 0.2s var(--ease-std);
-  }
-  .shorts-card:hover .shorts-cta {
-    color: var(--color-text);
-  }
-  .shorts-cta-arrow {
-    transition: transform 0.3s var(--ease-soft);
-  }
-  .shorts-card:hover .shorts-cta-arrow {
-    transform: translateX(2px);
   }
 
   /* ==========================================================================
@@ -785,27 +761,20 @@
 </div>
 
 <!-- ============================================================================
-     ⚠️  수동 입력이 필요한 항목
+     ⚠️  데이터 입력 가이드
      ============================================================================
-     아래 portfolioData 객체에서 null로 되어 있는 값을 채우세요.
+     아래 portfolioData 객체에서 모든 영상은 YouTube 임베드로 작동합니다.
+     별도의 썸네일 이미지 업로드가 필요하지 않으며, YouTube 자체 썸네일이
+     자동으로 표시됩니다.
 
-     [variety] (브이로그형 예능 1편)
-       - youtubeId, thumbnailPath: 채워짐 ✓
+     [variety] (브이로그형 예능 1편)        ✓ 모두 채워짐
+     [performance] (댄스 커버 영상 1편)      ✓ 거의 채워짐
+       - info[0].value (동아리명) — null이면 "정보 준비 중"으로 표시됨
+     [commercial] (SNS 프로모션 숏츠 2편)    ✓ 모두 채워짐
 
-     [performance] (댄스 커버 영상 1편)
-       - youtubeId, thumbnailPath: 채워짐 ✓
-       - info[0].value (동아리명): 채울 곳
-       - tagline (선택): 한 줄 설명, 안 쓰면 그대로 null
-
-     [commercial] (SNS 프로모션 숏츠 6편)
-       각 항목마다:
-         title             — 작품명 (실제 IP 작품명)
-         externalUrl       — 카카오톡 숏폼 외부 링크
-         thumbnailPath     — 이미 "/images/shorts-1.jpg" 형식으로 채워짐
-         sourceType        — 모두 "webtoon"으로 채워짐 (6편 다 웹툰)
-
-     ★ 이미지는 사이트 루트의 /images/ 폴더에 다음 파일명으로 업로드:
-        variety-1.jpg, dance-1.jpg, shorts-1.jpg ~ shorts-6.jpg
+     YouTube 영상 ID 형식:
+       URL: https://youtu.be/dQw4w9WgXcQ
+       ID:  dQw4w9WgXcQ (마지막 / 뒤 11자리)
      ============================================================================ -->
 <script>
   const portfolioData = {
@@ -823,7 +792,6 @@
       title: "수강신청 브이로그 예능",
       tagline: "수강신청 현장을 따라간 학과 브이로그 예능",
       youtubeId: "xU75fGiO2Dg",
-      thumbnailPath: "/images/variety-1.jpg",
       info: [
         { key: "주제",      value: "수강신청" },
         { key: "출연",      value: "학과 학생 3개 팀" },
@@ -855,8 +823,7 @@
       video: {
         id: "dance-1",
         title: "댄스 커버 영상",
-        youtubeId: "wCTjzcYyI7E",
-        thumbnailPath: "/images/dance-1.jpg"
+        youtubeId: "wCTjzcYyI7E"
       }
     },
 
@@ -867,12 +834,18 @@
         { key: "담당 역할",   value: "단독 기획·편집" }
       ],
       shorts: [
-        { id: "shorts-1", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-1.jpg" },
-        { id: "shorts-2", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-2.jpg" },
-        { id: "shorts-3", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-3.jpg" },
-        { id: "shorts-4", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-4.jpg" },
-        { id: "shorts-5", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-5.jpg" },
-        { id: "shorts-6", title: null, sourceType: "webtoon", externalUrl: null, thumbnailPath: "/images/shorts-6.jpg" }
+        {
+          id: "shorts-1",
+          title: "염라를 위한 안내",
+          sourceType: "webtoon",
+          youtubeId: "Ktd_JHoAbAI"
+        },
+        {
+          id: "shorts-2",
+          title: "방송천재 막내작가",
+          sourceType: "webtoon",
+          youtubeId: "mqrRsOF5xJo"
+        }
       ]
     }
   };
@@ -983,7 +956,7 @@
           <h2 class="section-title">SNS 프로모션 숏츠</h2>
           <p class="section-sub">
             카카오엔터테인먼트에서 인턴으로 근무하며 제작한 자사 웹툰·웹소설 IP 기반 SNS 프로모션 숏츠입니다.<br>
-            한 편마다 작품의 개성에 맞춰 편집 방식을 다르게 설계했고, 공개된 작품들 중 6편을 선별해 보여드립니다.
+            한 편마다 작품의 개성에 맞춰 편집 방식을 다르게 설계했고, 공개된 작품들 중 2편을 선별해 보여드립니다.
           </p>
         </div>
       </div>
@@ -1264,31 +1237,20 @@
       const sourceLabel = s.sourceType === 'webtoon' ? '웹툰' :
                           s.sourceType === 'webnovel' ? '웹소설' : '카카오 IP';
 
-      // 썸네일 영역 — 직접 업로드된 이미지가 있으면 표시, 없으면 placeholder
-      const thumbHtml = s.thumbnailPath
-        ? `<img src="${escapeHtml(s.thumbnailPath)}" alt="${escapeHtml(title)} 썸네일" loading="lazy"
-                style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-lg);" />`
-        : `<div class="video-placeholder">썸네일 준비 중</div>`;
-
-      const href = s.externalUrl || '#';
-      const target = s.externalUrl ? '_blank' : '_self';
-      const rel = s.externalUrl ? 'noopener noreferrer' : '';
+      const videoHtml = renderVideoFrame({
+        youtubeId: s.youtubeId,
+        aspect: '9x16',
+        title: title
+      });
 
       return `
-        <a class="shorts-card" href="${escapeHtml(href)}" target="${target}" rel="${rel}"
-           aria-label="${escapeHtml(title)} 카카오톡 숏폼에서 보기">
-          <div class="video-frame aspect-9x16">
-            ${thumbHtml}
-          </div>
+        <div class="shorts-card">
+          ${videoHtml}
           <div class="shorts-info">
             <div class="shorts-source">${escapeHtml(sourceLabel)}</div>
             <div class="shorts-title">${escapeHtml(title)}</div>
-            <div class="shorts-cta">
-              <span>카카오톡 숏폼에서 보기</span>
-              <span class="shorts-cta-arrow" aria-hidden="true">→</span>
-            </div>
           </div>
-        </a>
+        </div>
       `;
     }).join('');
   }
