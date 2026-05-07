@@ -511,49 +511,6 @@
     background: var(--color-bg-soft);
   }
 
-  /* 직접 업로드 썸네일 위에 ▶ 오버레이 */
-  .video-thumb {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-  }
-  .video-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s var(--ease-soft);
-  }
-  .video-thumb:hover img { transform: scale(1.03); }
-  .video-thumb-play {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 64px; height: 64px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s var(--ease-soft);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  }
-  .video-thumb:hover .video-thumb-play {
-    background: rgba(255, 255, 255, 1);
-    transform: translate(-50%, -50%) scale(1.05);
-  }
-  .video-thumb-play::before {
-    content: '';
-    width: 0; height: 0;
-    border-left: 14px solid var(--color-text);
-    border-top: 9px solid transparent;
-    border-bottom: 9px solid transparent;
-    margin-left: 4px;
-  }
-
   /* ==========================================================================
      섹션 1 — 브이로그형 예능
      영상과 설명을 항상 다른 행에 배치 (PC에서도 좌우 분할 안 함)
@@ -809,7 +766,7 @@
       title: "댄스 커버 영상",
       tagline: null,    // (선택) 한 줄 설명. 안 쓰려면 그대로 null
       info: [
-        { key: "동아리",       value: null },  // 예: "○○대학교 댄스 동아리 ○○"
+        { key: "동아리",       value: "대학교 댄스공연 동아리" },
         { key: "곡",          value: "Stefflon Don - 16 Shots" },
         { key: "제작 시기",     value: "2020.09. ~ 2020.10." },
         { key: "촬영 환경",     value: "한 시간 사용 가능한 연습실, 카메라 2대" },
@@ -823,7 +780,7 @@
       video: {
         id: "dance-1",
         title: "댄스 커버 영상",
-        youtubeId: "wCTjzcYyI7E"
+        youtubeId: "wCTjzcYyl7E"
       }
     },
 
@@ -1045,33 +1002,15 @@
   };
 
   /* ==========================================================================
-     영상 프레임 렌더 (썸네일 직접 업로드 방식)
-     - thumbnailPath와 youtubeId가 모두 있으면: 썸네일 + 클릭 시 lite-youtube로 교체
-     - 둘 중 하나만 있으면: lite-youtube 또는 placeholder
-     - 둘 다 없으면: placeholder
+     영상 프레임 렌더
+     - youtubeId가 있으면 lite-youtube가 자동으로 YouTube 썸네일 + 재생 처리
+     - 없으면 placeholder
      ========================================================================== */
   function renderVideoFrame(opts) {
-    const { youtubeId, thumbnailPath, aspect = '16x9', title = '' } = opts;
+    const { youtubeId, aspect = '16x9', title = '' } = opts;
     const aspectClass = `aspect-${aspect}`;
 
-    // 둘 다 있음: 직접 업로드 썸네일 + 클릭 시 영상 재생
-    if (youtubeId && thumbnailPath) {
-      return `
-        <div class="video-frame ${aspectClass}">
-          <div class="video-thumb"
-               data-youtube-id="${escapeHtml(youtubeId)}"
-               data-title="${escapeHtml(title)}"
-               role="button" tabindex="0"
-               aria-label="${escapeHtml(title)} 영상 재생">
-            <img src="${escapeHtml(thumbnailPath)}" alt="${escapeHtml(title)} 썸네일" loading="lazy" />
-            <div class="video-thumb-play" aria-hidden="true"></div>
-          </div>
-        </div>
-      `;
-    }
-
-    // youtubeId만 있음: lite-youtube가 자동으로 유튜브 썸네일 사용
-    if (youtubeId && !thumbnailPath) {
+    if (youtubeId) {
       return `
         <div class="video-frame ${aspectClass}">
           <lite-youtube videoid="${escapeHtml(youtubeId)}" playlabel="${escapeHtml(title)}"></lite-youtube>
@@ -1086,30 +1025,6 @@
       </div>
     `;
   }
-
-  /* 직접 업로드 썸네일 클릭 시 lite-youtube로 교체 */
-  document.addEventListener('click', (e) => {
-    const thumb = e.target.closest('.video-thumb');
-    if (!thumb) return;
-    const id = thumb.dataset.youtubeId;
-    const title = thumb.dataset.title || '';
-    if (!id) return;
-
-    const frame = thumb.parentElement;
-    frame.innerHTML = `<lite-youtube videoid="${id}" playlabel="${title}" autoload></lite-youtube>`;
-    // autoload 속성으로 즉시 재생 시도
-    const lite = frame.querySelector('lite-youtube');
-    if (lite && typeof lite.addIframe === 'function') {
-      lite.addIframe();
-    }
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    const thumb = e.target.closest('.video-thumb');
-    if (!thumb) return;
-    e.preventDefault();
-    thumb.click();
-  });
 
   /* ==========================================================================
      Tools 위젯
@@ -1140,7 +1055,6 @@
 
     const videoHtml = renderVideoFrame({
       youtubeId: v.youtubeId,
-      thumbnailPath: v.thumbnailPath,
       aspect: '16x9',
       title: v.title
     });
@@ -1158,12 +1072,15 @@
     }).join('');
 
     const noteParas = v.note.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    const taglineHtml = v.tagline
+      ? `<p class="work-tagline">${escapeHtml(v.tagline)}</p>`
+      : '';
 
     el.innerHTML = `
       <div class="variety-video">${videoHtml}</div>
       <div class="work-info">
         <h3 class="work-title">${escapeHtml(v.title)}</h3>
-        <p class="work-tagline">${escapeHtml(v.tagline)}</p>
+        ${taglineHtml}
         <ul class="info-list">${infoRows}</ul>
         <div class="work-note">${noteParas}</div>
       </div>
@@ -1180,7 +1097,6 @@
 
     const videoHtml = renderVideoFrame({
       youtubeId: p.video.youtubeId,
-      thumbnailPath: p.video.thumbnailPath,
       aspect: '16x9',
       title: p.video.title
     });
