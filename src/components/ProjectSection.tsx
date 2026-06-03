@@ -18,6 +18,7 @@ type ProjectSectionProps = {
   posterSrc?: string;
   paragraphs: string[];
   meta?: [string, string][];
+  tags?: string[];
   badges?: string[];
   rows?: [string, string][];
   gridItems?: GridItem[];
@@ -35,6 +36,7 @@ export function ProjectSection({
   posterSrc,
   paragraphs,
   meta,
+  tags,
   badges,
   rows,
   gridItems,
@@ -48,9 +50,14 @@ export function ProjectSection({
           <span className="section-index">{index} · {eyebrow}</span>
           <h2 className="text-title-1">{title}</h2>
           <p className="text-body">{description}</p>
+          {tags && (
+            <div className="badge-row header-badges">
+              {tags.map((tag) => (
+                <Badge key={tag}>{tag}</Badge>
+              ))}
+            </div>
+          )}
         </div>
-
-        {outcome && <p className="project-outcome">{outcome}</p>}
 
         {videoSrc && (
           <div className="project-video">
@@ -72,11 +79,19 @@ export function ProjectSection({
           </div>
         )}
 
-        <div className="paragraph-stack">
-          {paragraphs.map((paragraph) => (
-            <p className="text-body" key={paragraph}>{paragraph}</p>
-          ))}
+        <div className="detail-header">
+          <span>프로젝트 상세 보기</span>
         </div>
+
+        {outcome && <p className="project-outcome">{outcome}</p>}
+
+        {paragraphs.length > 0 && (
+          <div className="paragraph-stack">
+            {paragraphs.map((paragraph) => (
+              <p className="text-body" key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        )}
 
         {meta && (
           <div className="meta-card">

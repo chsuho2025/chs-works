@@ -186,6 +186,13 @@ a {
   max-width: 520px;
 }
 
+.hero-description-stack {
+  display: flex;
+  max-width: 560px;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .hero-media {
   position: relative;
   width: 100%;
@@ -311,7 +318,24 @@ a {
   gap: 12px;
 }
 
+.header-badges {
+  margin-top: 4px;
+}
+
 .section-index {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.detail-header {
+  max-width: 680px;
+  margin: 36px auto 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.detail-header span {
   color: var(--primary);
   font-size: 13px;
   font-weight: 900;
@@ -319,7 +343,7 @@ a {
 
 .project-outcome {
   max-width: 680px;
-  margin: 28px auto 0;
+  margin: 14px auto 0;
   color: var(--text-primary);
   font-size: 18px;
   line-height: 1.68;
