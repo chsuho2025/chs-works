@@ -13,9 +13,9 @@ export function Hero() {
             <p className="hero-name">최수호</p>
             <p className="hero-role">영상 콘텐츠 제작자</p>
           </div>
-          <h1 className="text-display">서비스와 기능을<br />쉽게 이해되는 영상으로 만듭니다.</h1>
+          <h1 className="text-display">서비스와 기능을<br />이해하기 쉬운 영상으로 정리합니다.</h1>
           <p className="text-body hero-description">
-            카카오엔터테인먼트에서 숏폼 콘텐츠와 제작 가이드를 만들었고, 사내 해커톤에서는 서비스 데모 영상을 제작해 우수상을 받았습니다.
+            화면 흐름, 내레이션, 자막, 모션을 묶어 처음 보는 사람도 기능을 빠르게 이해하도록 만드는 데 집중합니다.
           </p>
           <div className="button-row">
             <Button href="#work">작업 보기</Button>

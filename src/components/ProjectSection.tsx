@@ -21,6 +21,7 @@ type ProjectSectionProps = {
   badges?: string[];
   rows?: [string, string][];
   gridItems?: GridItem[];
+  outcome?: string;
   note?: string;
 };
 
@@ -37,6 +38,7 @@ export function ProjectSection({
   badges,
   rows,
   gridItems,
+  outcome,
   note,
 }: ProjectSectionProps) {
   return (
@@ -47,6 +49,8 @@ export function ProjectSection({
           <h2 className="text-title-1">{title}</h2>
           <p className="text-body">{description}</p>
         </div>
+
+        {outcome && <p className="project-outcome">{outcome}</p>}
 
         {videoSrc && (
           <div className="project-video">

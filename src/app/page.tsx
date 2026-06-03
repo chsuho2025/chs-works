@@ -1,25 +1,24 @@
-import { ContactCTA } from "@/components/ContactCTA";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { ProjectSection } from "@/components/ProjectSection";
-import { Badge } from "@/components/Badge";
+import { Button } from "@/components/Button";
 import { ListRow } from "@/components/ListRow";
 
 const layoutImages = [
   {
     src: "/images/layout-guide-01.png",
     title: "시안 1",
-    caption: "제목과 자막 영역을 분리한 구성",
+    caption: "제목·자막 영역을 분리해 읽는 순서를 분명히 한 시안",
   },
   {
     src: "/images/layout-guide-02.png",
     title: "시안 2",
-    caption: "주요 정보를 중앙에 집중한 구성",
+    caption: "핵심 문구를 중앙에 모아 작은 화면 집중도를 높인 시안",
   },
   {
     src: "/images/layout-guide-final.png",
     title: "최종안",
-    caption: "반복 제작에 적합하도록 정리한 레이아웃",
+    caption: "반복 제작자가 바로 적용할 수 있도록 안전 영역을 정리한 최종안",
   },
 ];
 
@@ -27,17 +26,17 @@ const aiImages = [
   {
     src: "/images/ai-disclosure-01.png",
     title: "시안 1",
-    caption: "콘텐츠 시작 지점에 고지하는 방식",
+    caption: "콘텐츠 시작 지점에서 AI 사용 여부를 먼저 안내하는 방식",
   },
   {
     src: "/images/ai-disclosure-02.png",
     title: "시안 2",
-    caption: "화면 내 정보 영역에 함께 노출하는 방식",
+    caption: "본문 정보와 함께 배치해 시청 흐름을 유지하는 방식",
   },
   {
     src: "/images/ai-disclosure-final.png",
     title: "최종안",
-    caption: "시청 흐름을 해치지 않도록 정리한 고지 방식",
+    caption: "명확한 고지와 자연스러운 노출 사이의 균형을 맞춘 최종안",
   },
 ];
 
@@ -52,95 +51,88 @@ export default function Home() {
           id="work"
           index="01"
           eyebrow="Demo Video"
-          title={"1분 안에 기능을 이해할 수 있는\n데모 영상을 만들었어요."}
-          description="카카오엔터테인먼트 사내 해커톤에서 제작한 서비스 데모 영상입니다."
+          title={"처음 보는 기능도\n1분 안에 이해되도록 만들었습니다."}
+          description="카카오엔터테인먼트 사내 해커톤 서비스 데모 영상"
+          outcome="팬 활동 이력을 요약해 아티스트에게 보여주는 기능을, 사용 흐름 중심의 짧은 데모 영상으로 정리했습니다."
           videoSrc="/videos/hackathon-demo.mp4"
           posterSrc="/images/hero-thumbnail.png"
           paragraphs={[
-            "팬의 활동 이력을 요약해 아티스트에게 보여주는 기능을 제안했습니다.",
-            "아티스트가 기능을 처음 접해도 1분 안에 사용 흐름을 이해할 수 있도록 영상을 구성했습니다.",
-            "3인 팀으로 참여했고, 최종 우수상(3위)을 수상했습니다.",
+            "기능 설명 순서를 먼저 정리하고, 화면 녹화·클릭 모션·TTS 내레이션·BGM을 조합해 실제 서비스 소개처럼 보이도록 편집했습니다.",
+            "3인 팀 프로젝트로 참여했으며 최종 우수상(3위)을 수상했습니다.",
           ]}
           meta={[
-            ["프로젝트", "카카오엔터테인먼트 사내 해커톤"],
+            ["프로젝트", "사내 해커톤 데모 영상"],
             ["결과", "우수상(3위)"],
-            ["팀 규모", "3인"],
             ["영상 길이", "약 1분"],
-            ["역할", "서비스 흐름 정리, 데모 영상 제작"],
+            ["핵심 역할", "서비스 흐름 정리, 데모 영상 편집"],
           ]}
           badges={[
             "서비스 흐름 정리",
-            "화면 캡처",
             "화면 녹화",
-            "클릭 모션 제작",
+            "클릭 모션",
             "TTS 생성",
-            "음성 톤 보정",
             "BGM 편집",
-            "전체 영상 편집",
+            "전체 편집",
           ]}
           rows={[
-            ["기능 설명 순서 정리", "처음 보는 사람도 기능 흐름을 따라갈 수 있도록 장면 순서를 먼저 정리했습니다."],
-            ["화면 녹화와 클릭 모션 구성", "실제 사용 장면처럼 보이도록 화면 녹화와 버튼 클릭 모션을 제작했습니다."],
-            ["TTS와 사운드 보정", "ElevenLabs로 내레이션을 만들고 Premiere Pro에서 톤과 속도를 보정했습니다."],
+            ["문제", "기능 아이디어는 있었지만, 처음 보는 사람이 빠르게 이해할 수 있는 설명 구조가 필요했습니다."],
+            ["접근", "사용자 화면 흐름을 기준으로 장면을 나누고 클릭 모션과 내레이션을 붙였습니다."],
+            ["결과", "기능의 목적과 사용 흐름이 짧은 시간 안에 전달되는 데모 영상으로 완성했습니다."],
           ]}
-          note="서비스 기능을 짧고 명확하게 설명하는 영상 구조를 만들기 위해 토스플레이스 유튜브 콘텐츠를 참고했습니다."
         />
 
         <ProjectSection
           id="layout-guide"
           index="02"
           eyebrow="Layout Guide"
-          title={"작은 화면에서도\n정보가 잘 읽히게 만들었어요."}
-          description="카카오엔터테인먼트 AI 서비스 기획팀에서 숏폼 콘텐츠 제작에 활용할 레이아웃 가이드를 만들었습니다."
+          title={"숏폼에서도\n정보가 먼저 읽히게 정리했습니다."}
+          description="AI 서비스 기획팀 숏폼 콘텐츠 레이아웃 가이드"
+          outcome="여러 제작자가 반복해서 써도 흔들리지 않도록 제목, 자막, 핵심 정보의 위치와 우선순위를 정리했습니다."
           paragraphs={[
-            "여러 시안을 먼저 제작한 뒤 팀의 의견을 받아 최종 가이드를 확정했습니다.",
-            "모바일 화면에서 제목, 자막, 핵심 정보가 서로 방해하지 않도록 안전 영역과 정보 우선순위를 정리했습니다.",
+            "시안 비교를 통해 모바일 화면에서 가장 먼저 보여야 하는 정보와 자막 안전 영역을 분리했습니다.",
           ]}
           gridItems={layoutImages}
-          badges={["모바일 화면 가독성", "자막 안전 영역", "정보 우선순위", "반복 제작 가능성", "시선 흐름"]}
+          meta={[
+            ["작업", "숏폼 레이아웃 가이드"],
+            ["목표", "모바일 가독성 개선"],
+            ["산출물", "시안 2종, 최종안"],
+          ]}
+          badges={["가독성", "안전 영역", "정보 우선순위", "반복 제작"]}
+          rows={[
+            ["문제", "작은 화면에서 제목, 자막, 정보 요소가 서로 경쟁해 핵심 메시지가 약해질 수 있었습니다."],
+            ["접근", "영역을 나누고 정보 위계를 정해 제작자가 같은 기준으로 반복 제작할 수 있게 했습니다."],
+          ]}
         />
 
         <ProjectSection
           id="ai-disclosure"
           index="03"
           eyebrow="AI Disclosure"
-          title={"AI 사용 여부를\n자연스럽게 알 수 있게 만들었어요."}
-          description="생성형 AI 활용 콘텐츠의 고지 방식을 검토하고 시안을 제작했습니다."
+          title={"AI 사용 고지를\n시청 흐름 안에 넣었습니다."}
+          description="생성형 AI 활용 콘텐츠 고지 방식 시안"
+          outcome="AI 사용 여부는 분명히 알리되, 콘텐츠 몰입을 방해하지 않는 문구와 위치를 비교했습니다."
           paragraphs={[
-            "시청 경험을 방해하지 않으면서도 AI 사용 여부는 명확하게 알 수 있도록 문구와 위치, 시각적 표현 방식을 비교했습니다.",
+            "고지 문구의 명확성, 화면 내 위치, 콘텐츠 톤과의 조화를 기준으로 시안을 비교하고 최종안을 정리했습니다.",
           ]}
           gridItems={aiImages}
-          badges={["고지 문구의 명확성", "시청 흐름", "가독성", "표기 위치", "콘텐츠 톤과의 조화"]}
+          meta={[
+            ["작업", "AI 사용 고지 가이드"],
+            ["목표", "명확한 고지와 자연스러운 시청 경험"],
+            ["산출물", "시안 2종, 최종안"],
+          ]}
+          badges={["명확성", "시청 흐름", "가독성", "표기 위치"]}
+          rows={[
+            ["문제", "AI 활용 여부를 숨기지 않으면서도 콘텐츠 첫인상을 무겁게 만들지 않는 방식이 필요했습니다."],
+            ["접근", "고지 위치와 문구 길이를 비교해 시청 흐름 안에서 자연스럽게 읽히는 형태를 찾았습니다."],
+          ]}
         />
-
-        <section className="section">
-          <div className="page-shell">
-            <div className="list-header">
-              <span className="section-index">Principles</span>
-              <h2 className="text-title-1">콘텐츠를 만들 때<br />이 세 가지를 먼저 봅니다.</h2>
-            </div>
-            <div className="principle-grid">
-              {[
-                ["1", "쉽게 이해돼야 합니다.", "처음 보는 사람도 흐름을 따라갈 수 있도록 정보의 순서를 먼저 정리합니다."],
-                ["2", "짧아야 합니다.", "불필요한 장면을 줄이고 핵심 기능과 메시지를 빠르게 보여줍니다."],
-                ["3", "필요한 정보는 빠지면 안 됩니다.", "시청 경험을 방해하지 않으면서도 알아야 할 정보는 명확하게 전달합니다."],
-              ].map(([num, title, body]) => (
-                <article className="principle-card" key={title}>
-                  <Badge>{num}</Badge>
-                  <h3 className="text-title-3">{title}</h3>
-                  <p className="text-body">{body}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="section" id="tools">
           <div className="page-shell narrow">
             <div className="list-header">
               <span className="section-index">Tools</span>
               <h2 className="text-title-1">사용 도구</h2>
-              <p className="text-body">기획부터 녹화, 내레이션, 편집까지 설명 영상 제작에 필요한 도구를 다룹니다.</p>
+              <p className="text-body">기획, 화면 녹화, 내레이션, 편집, 가이드 제작까지 설명 영상 제작에 필요한 흐름을 다룹니다.</p>
             </div>
             <div className="row-list">
               <ListRow title="Video" body="Premiere Pro, After Effects, Photoshop" />
@@ -150,7 +142,19 @@ export default function Home() {
           </div>
         </section>
 
-        <ContactCTA />
+        <section className="section final-cta">
+          <div className="page-shell narrow">
+            <span className="section-index">Next</span>
+            <h2 className="text-title-1">작업물 중심으로<br />간결하게 보여드렸습니다.</h2>
+            <p className="text-body">자세한 경력 정보는 이력서에서 확인할 수 있습니다.</p>
+            <div className="button-row">
+              <Button href="#work">작업 다시 보기</Button>
+              <Button variant="weak" href="/files/resume.pdf" target="_blank" rel="noreferrer">
+                이력서 열기
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
     </>
   );

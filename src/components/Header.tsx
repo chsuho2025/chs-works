@@ -10,7 +10,6 @@ export function Header() {
         <nav className="nav" aria-label="주요 메뉴">
           <a href="#work">작업</a>
           <a href="#tools">사용 도구</a>
-          <a href="#contact">연락처</a>
           <Button variant="weak" href="/files/resume.pdf" target="_blank" rel="noreferrer">
             이력서
           </Button>
