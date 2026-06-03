@@ -1,5 +1,5 @@
-import { PortfolioPage } from "@/components/PortfolioPage";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <PortfolioPage />;
+  redirect("/portfolio-standalone.html");
 }
